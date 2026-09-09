@@ -38,8 +38,8 @@ class Database {
         $sql = "CREATE TABLE IF NOT EXISTS contactos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
-            email TEXT NOT NULL,
-            celular TEXT NOT NULL
+            email TEXT NOT NULL UNIQUE,
+            celular TEXT
         )";
         $this->pdo->exec($sql);
     }

@@ -5,10 +5,10 @@ require 'database.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = htmlspecialchars(trim($_POST['nombre']));
     $email = htmlspecialchars(trim($_POST['email']));
-    $celular = htmlspecialchars(trim($_POST['celular']));
+    $celular = isset($_POST['celular']) ? htmlspecialchars(trim($_POST['celular'])) : '';
 
-    if (!empty($nombre) && !empty($email) && !empty($celular)) {
-        try {
+    if (!empty($nombre) && !empty($email)) {
+                try {
             $db = new Database();
             $conexion = $db->getConexion();
 
@@ -21,14 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt->execute();
             
-            // CAMBIO AQUÍ: Se agregó ../ para salir de la carpeta phpfiles
             header('Location: ../index.html?estado=exito');
             exit;
 
         } catch (PDOException $e) {
-            // CAMBIO AQUÍ: Se agregó ../
-            header('Location: ../index.html?estado=error');
-            exit;
+            // Código 23000 significa "Violación de restricción de integridad" (ej: UNIQUE duplicado)
+            if ($e->getCode() == 23000) {
+                // Redirigimos con un estado de "duplicado"
+                header('Location: ../index.html?estado=duplicado');
+                exit;
+            } else {
+                // Si es otro error de base de datos, mostramos el genérico
+                header('Location: ../index.html?estado=error');
+                exit;
+            }
         }
     } else {
         // CAMBIO AQUÍ: Se agregó ../
