@@ -66,31 +66,38 @@ form.addEventListener("submit", async function (event) {
         hayErrores = true;
     }
 
-    if (hayErrores) return; // 🔑 Corta acá si hay errores, no envía nada
+    if (hayErrores) return; //Corta acá si hay errores, no envía nada
 
     // ── Envío a tu script PHP ─────────────────────────────────────
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Enviando...";
 
-        try {
-            const response = await fetch("phpfiles/guardar.php", {
-            method: "POST",
-            body: new URLSearchParams(formData) // Se comporta como un form HTML normal
-        });
+       try {
+    const response = await fetch("phpfiles/guardar.php", {
+        method: "POST",
+        body: new URLSearchParams(formData)
+    });
 
-        if (!response.ok) throw new Error("Error del servidor");
+    // PHP siempre responde JSON, lo parseamos
+    const data = await response.json();
 
+    if (data.ok) {
         feedbackMsg.classList.add("success");
-        feedbackMsg.textContent = "¡Gracias por registrarte!";
+        feedbackMsg.textContent = data.mensaje; // "¡Gracias por registrarte!"
         form.reset();
-
-    } catch (error) {
+    } else {
+        // PHP devolvió ok:false → mostramos el error correspondiente
         feedbackMsg.classList.add("error");
-        feedbackMsg.textContent = "Ocurrió un error al enviar el formulario. Intentalo de nuevo.";
+        feedbackMsg.textContent = data.mensaje;
+    }
 
-    } finally {
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = "Quiero ofertas";
+} catch (error) {
+    // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
+    feedbackMsg.classList.add("error");
+    feedbackMsg.textContent = "No se pudo conectar con el servidor. Revisá tu conexión.";
+} finally {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = "Registrarme ahora";
     }
 });   
 
