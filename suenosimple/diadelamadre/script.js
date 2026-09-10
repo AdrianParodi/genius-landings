@@ -1,48 +1,99 @@
 // -------------- Formulario --------------
 
 const form = document.getElementById("registro-form");
-        const btnSubmit = document.getElementById("btn-submit");
-        const feedbackMsg = document.getElementById("feedback-msg");
+const btnSubmit = document.getElementById("btn-submit");
+const feedbackMsg = document.getElementById("feedback-msg");
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
+// ─── Funciones de validación ───────────────────────────────────────
+function validarNombre(nombre) {
+    return nombre.trim().length > 0;
+}
 
-            feedbackMsg.className = "status-msg";
-            feedbackMsg.textContent = "";
-            btnSubmit.disabled = true;
-            btnSubmit.textContent = "Enviando...";
+function validarEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
 
-            try {
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                // const formData = new FormData("registro-form");
+function validarTelefono(telefono) {
+    if (telefono === "") return true; // Campo vacío → OK, es opcional
 
-                // const datos = Object.fromEntries(formData.entries());
-                // datos.fecha_registro = new Date().toLocaleString();
-                // const jsonString = JSON.stringify(datos, null, 2);
-                // const blob = new Blob([jsonString], { type: "application/json" });
-                // const url = URL.createObjectURL(blob);
-                // const enlace = document.createElement("a");
-                // enlace.href = url;
-                // enlace.download = `datos_formulario_${Date.now()}.json`; // Nombre único usando el timestamp
-                // enlace.click();
-                // URL.revokeObjectURL(url);
-                // formulario.reset(); 
+    const regex = /^\d+$/; // Si ingresó algo → solo números
+    return regex.test(telefono);
+}
 
-                feedbackMsg.classList.add("success");
-                feedbackMsg.textContent = "¡Gracias por registrarte! Te enviamos las ofertas al correo.";
-                form.reset();
+function mostrarError(campo, mensaje) {
+    const errorEl = document.getElementById(`error-${campo}`);
+    if (errorEl) errorEl.textContent = mensaje;
+}
 
-            } catch (error) {
-                feedbackMsg.classList.add("error");
-                feedbackMsg.textContent = "Ocurrió un error al enviar el formulario. Intentalo de nuevo.";
+function limpiarErrores() {
+    ["nombre", "email", "telefono"].forEach(campo => {
+        const errorEl = document.getElementById(`error-${campo}`);
+        if (errorEl) errorEl.textContent = "";
+    });
+}
 
-            } finally {
-                btnSubmit.disabled = false;
-                btnSubmit.textContent = "Quiero ofertas";
-            }
+// ─── Submit ────────────────────────────────────────────────────────
+form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    // Limpiar estado previo
+    limpiarErrores();
+    feedbackMsg.className = "status-msg";
+    feedbackMsg.textContent = "";
+
+    const formData = {
+        nombre:   form.nombre.value.trim(),
+        email:    form.email.value.trim(),
+        telefono: form.telefono.value.trim(),
+    };
+
+    // ── Validaciones ──────────────────────────────────────────────
+    let hayErrores = false;
+
+    if (!validarNombre(formData.nombre)) {
+        mostrarError("nombre", "El nombre no puede estar vacío.");
+        hayErrores = true;
+    }
+
+    if (!validarEmail(formData.email)) {
+        mostrarError("email", "Ingresá un email válido (ej: usuario@mail.com).");
+        hayErrores = true;
+    }
+
+    if (!validarTelefono(formData.telefono)) {
+        mostrarError("telefono", "El teléfono solo puede contener números.");
+        hayErrores = true;
+    }
+
+    if (hayErrores) return; // 🔑 Corta acá si hay errores, no envía nada
+
+    // ── Envío a tu script PHP ─────────────────────────────────────
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = "Enviando...";
+
+        try {
+            const response = await fetch("phpfiles/guardar.php", {
+            method: "POST",
+            body: new URLSearchParams(formData) // Se comporta como un form HTML normal
         });
 
-        
+        if (!response.ok) throw new Error("Error del servidor");
+
+        feedbackMsg.classList.add("success");
+        feedbackMsg.textContent = "¡Gracias por registrarte!";
+        form.reset();
+
+    } catch (error) {
+        feedbackMsg.classList.add("error");
+        feedbackMsg.textContent = "Ocurrió un error al enviar el formulario. Intentalo de nuevo.";
+
+    } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Quiero ofertas";
+    }
+});   
+
 
 // -------------- Seccion preguntas --------------
 
@@ -61,7 +112,3 @@ document.querySelectorAll('.faq-question').forEach(button => {
         }
     });
 });
-
-setInterval(function() {
-             location.reload();
-         }, 3000);
