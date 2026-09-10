@@ -12,15 +12,21 @@ const form = document.getElementById("registro-form");
             btnSubmit.disabled = true;
             btnSubmit.textContent = "Enviando...";
 
-            const formData = {
-                nombre: form.nombre.value.trim(),
-                email: form.email.value.trim(),
-                telefono: form.telefono.value.trim(),
-            };
-
             try {
                 await new Promise((resolve) => setTimeout(resolve, 500));
-                console.log("llegandoooo")
+                // const formData = new FormData("registro-form");
+
+                // const datos = Object.fromEntries(formData.entries());
+                // datos.fecha_registro = new Date().toLocaleString();
+                // const jsonString = JSON.stringify(datos, null, 2);
+                // const blob = new Blob([jsonString], { type: "application/json" });
+                // const url = URL.createObjectURL(blob);
+                // const enlace = document.createElement("a");
+                // enlace.href = url;
+                // enlace.download = `datos_formulario_${Date.now()}.json`; // Nombre único usando el timestamp
+                // enlace.click();
+                // URL.revokeObjectURL(url);
+                // formulario.reset(); 
 
                 feedbackMsg.classList.add("success");
                 feedbackMsg.textContent = "¡Gracias por registrarte! Te enviamos las ofertas al correo.";
@@ -35,6 +41,8 @@ const form = document.getElementById("registro-form");
                 btnSubmit.textContent = "Quiero ofertas";
             }
         });
+
+        
 
 // -------------- Seccion preguntas --------------
 
@@ -53,3 +61,7 @@ document.querySelectorAll('.faq-question').forEach(button => {
         }
     });
 });
+
+setInterval(function() {
+             location.reload();
+         }, 3000);
