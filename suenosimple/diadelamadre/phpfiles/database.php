@@ -39,7 +39,7 @@ class Database {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
-            celular TEXT
+            telefono TEXT
         )";
         $this->pdo->exec($sql);
     }
