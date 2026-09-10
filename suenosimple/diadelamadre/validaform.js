@@ -13,8 +13,10 @@ function validarEmail(email) {
 }
 
 function validarTelefono(telefono) {
-    const regex = /^\d+$/; // Solo dígitos
-    return regex.test(telefono.trim());
+    if (telefono === "") return true; // Campo vacío → OK, es opcional
+
+    const regex = /^\d+$/; // Si ingresó algo → solo números
+    return regex.test(telefono);
 }
 
 function mostrarError(campo, mensaje) {
@@ -68,8 +70,8 @@ form.addEventListener("submit", async function (event) {
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Enviando...";
 
-    try {
-            const response = await fetch("tu-script.php", {
+        try {
+            const response = await fetch("phpfiles/guardar.php", {
             method: "POST",
             body: new URLSearchParams(formData) // Se comporta como un form HTML normal
         });
@@ -77,7 +79,7 @@ form.addEventListener("submit", async function (event) {
         if (!response.ok) throw new Error("Error del servidor");
 
         feedbackMsg.classList.add("success");
-        feedbackMsg.textContent = "¡Gracias por registrarte! Te enviamos las ofertas al correo.";
+        feedbackMsg.textContent = "¡Gracias por registrarte!";
         form.reset();
 
     } catch (error) {
