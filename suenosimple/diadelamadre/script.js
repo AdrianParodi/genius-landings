@@ -72,7 +72,11 @@ form.addEventListener("submit", async function (event) {
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Enviando...";
 
+<<<<<<< HEAD
        try {
+=======
+    try {
+>>>>>>> 3623f4f5a733b03ad69a02806c7722e60bd6338b
     const response = await fetch("phpfiles/guardar.php", {
         method: "POST",
         body: new URLSearchParams(formData)
@@ -91,6 +95,13 @@ form.addEventListener("submit", async function (event) {
         feedbackMsg.textContent = data.mensaje;
     }
 
+<<<<<<< HEAD
+=======
+    setInterval(function() {
+        feedbackMsg.textContent = ""
+    }, 4000);
+
+>>>>>>> 3623f4f5a733b03ad69a02806c7722e60bd6338b
 } catch (error) {
     // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
     feedbackMsg.classList.add("error");
