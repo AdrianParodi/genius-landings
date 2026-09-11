@@ -48,18 +48,21 @@
         <div class="formulario">
             <h2>Registrate y accedé primero a las ofertas</h1>
 
-                <form class="form-section" id="registro-form">
+                <form class="form-section" id="registro-form" action="phpfiles/guardar.php">
                     <div class="field">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                        <label id="error-nombre" class="status-msg.error"></label>
                     </div>
                     <div class="field">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                        <span id="error-email" class="status-msg.error"></span>
                     </div>
                     <div class="field">
                         <label for="telefono">Teléfono (opcional)</label>
                         <input type="tel" id="telefono" name="telefono" placeholder="11 1234 5678">
+                        <p id="error-telefono" class="status-msg.error"></p>
                     </div>
 
                     <button type="submit" id="btn-submit" class="submit">Registrarme ahora</button>
