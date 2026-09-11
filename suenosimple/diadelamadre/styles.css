@@ -311,6 +311,15 @@ textarea {
     color: #000000;
 }
 
+@media screen and (min-width: 768px) {
+
+    .section-title {
+        
+        margin-bottom: 2rem;
+    }
+
+}
+
 .features {
     
     display: grid;
@@ -662,6 +671,7 @@ textarea {
 }
 
 .faq-answer p {
+    font-size: 15px;
     padding-bottom: 18px;
     margin: 0;
     color: #666;
