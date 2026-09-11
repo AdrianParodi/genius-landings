@@ -6,7 +6,6 @@
     padding: 0;
 }
 
-
 html {
 
   scroll-behavior: smooth;
@@ -27,6 +26,35 @@ body {
     border-radius: 5px;
     border: .5px solid gray;
     cursor: pointer;
+}
+
+.btn-wsp {
+
+    position: fixed;
+    z-index: 10;
+    bottom: .2rem;
+    right: .5rem;
+    cursor: pointer;
+}
+
+.btn-wsp img {
+    width: 2rem;
+    height: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+
+    .btn-wsp img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .btn-wsp {
+  
+        bottom: 1rem;
+        right: 1rem;
+      
+    }
 
 }
 
@@ -35,7 +63,7 @@ body {
 .navbar {
     background: #f8fafc;
     border-bottom: 1px solid #c8c9c9;
-    padding: 10px 32px;
+    padding: 1rem;
     font-size: 0.82rem;
     display: flex;
     justify-content: space-between;
@@ -62,13 +90,24 @@ body {
 .hero {
     background: #F5F5F5;
     color: black;
-    width: 100%;
-    padding: 3rem 5rem;
+    padding: 1rem;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    align-items: center;
-    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
+    justify-content: center;
+    
+}
+
+@media screen and (min-width: 768px) {
+    
+    .hero {
+        grid-template-columns: 2fr 1fr;
+        padding: 3rem 5rem;
+        gap: 2rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
 }
 
 .hero h1 {
@@ -94,7 +133,7 @@ body {
 }
 
 .btn-a {
-    width: fit-content;
+    
     text-decoration: none;
     padding: 0.5rem 1.5rem;
     background-color: #333333;
@@ -104,19 +143,23 @@ body {
     cursor: pointer;
     font-size: .7rem;
     font-weight: 700;
+    text-align: center;
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .btn-a {
+
+        width: fit-content;
+
+    }
+
 }
 
 .promo-imagen {
     width: 100%
 }
-
-.promo-imagen img {
-    width: 40rem;
-    object-fit: cover;
-    height: 20rem;
-    border-radius: 10px;
-}
-
 
 .promo-text {
     display: flex;
@@ -128,12 +171,30 @@ body {
 .promo {
     display: flex;
     flex-direction: column;
-    align-items: start;
+  
     gap: 2rem;
 }
 
-.promo img {
-    align-items: center;
+.promo-imagen img {
+    
+    display: flex;
+    object-fit: cover;
+    height: 17rem;
+    width: 18rem;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+    
+    .promo-imagen img {
+        width: 44rem;
+        height: 24rem;
+    }   
+
+    .promo { 
+        align-items: start;
+    }
 }
 
 .promo button {
@@ -251,12 +312,11 @@ textarea {
 }
 
 .features {
-    width: 90%;
+    
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
-    margin: 1rem 2rem;
     justify-content: center;
+    margin: 1rem 0;
 }
 
 .feature-card {
@@ -268,6 +328,17 @@ textarea {
     gap: 1rem;
     flex-direction: column;
     justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+    
+    .features {
+
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 90%;
+        margin: 0 2rem;
+    }
+
 }
 
 .feature-card .texto {
@@ -341,7 +412,7 @@ textarea {
 .section-opiniones {
     display: flex;
     flex-direction: column;
-    padding: 5rem;
+    padding: 2rem;
     background-color: #F5F5F5;
     height: fit-content;
     border-top: 1px dashed gray;
@@ -356,6 +427,8 @@ textarea {
     display: flex;
     gap: 2rem;
     align-items: center;
+    flex-direction: column;
+
 }
 
 .card-opinion {
@@ -367,6 +440,22 @@ textarea {
     background-color: white;
     display: flex;
     flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+
+    .section-opiniones {
+
+        padding: 5rem;
+
+    }
+
+    .opiniones {
+
+        flex-direction: row;
+
+    }
+
 }
 
 .card-opinion h3 {
@@ -403,9 +492,8 @@ textarea {
 
 .section-NoTeQuedes {
 
-    padding: 4rem;
+    padding: 2rem;
     text-align: center;
-    width: 50%;
     margin: auto;
 
 }
@@ -415,6 +503,19 @@ textarea {
     margin: 2rem 0;
     color: gray;
     font-size: 14px;
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .section-NoTeQuedes {
+
+        padding: 4rem;
+        text-align: center;
+        width: 50%;
+        margin: auto;
+
+    }
 
 }
 
@@ -431,11 +532,24 @@ textarea {
 .section-caracteristicas {
 
     background-color: #F9FAFB;
-    padding: 5rem;
-    text-align: center;
-    margin: auto;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    padding: 3rem 0;
+    gap: 3rem;
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .section-caracteristicas {
+        
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 5rem 5rem;
+    }
 
 }
 
@@ -471,9 +585,8 @@ textarea {
     
     margin: 0 auto;
     background: #F5F5F5;
-    border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    padding: 3rem;
+    padding: 2rem;
 }
 
 .section-preguntas h2 {
@@ -484,11 +597,28 @@ textarea {
 
 .div-preguntas {
 
-    width: 80%;
-    background-color: white;
     margin: auto;
-    padding: .7rem 1.5rem;
-    border-radius: 1rem;
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .section-preguntas { 
+        
+        padding: 3rem;
+        border-radius: 8px;
+
+    }
+
+    .div-preguntas {
+
+        width: 80%;
+        background-color: white;
+        margin: auto;
+        border-radius: 1rem;
+        padding: .7rem 1.5rem;
+    }
+
 }
 
 .faq-item {
@@ -557,21 +687,44 @@ textarea {
 }
 
 .footer-info {
-    text-align: center;
-    padding: 28px 24px;
+    text-align: start;
     font-size: 0.82rem;
     display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    flex-direction: column;
     justify-content: space-around;
 }
 
 .footer-politica {
-    margin: 1rem auto;
+    
+    width: 100%;
+    margin: 0 auto;
     padding: 2rem;
     font-size: 10px;
-    text-align: center;
-    width: 80%;
     border-top: 1px solid gray;
-    color: gray
+    color: gray;
+    text-align: center;
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .footer-info {
+        text-align: center;
+        padding: 28px 24px;
+        font-size: 0.82rem;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .footer-politica {
+       
+        width: 80%;
+        margin: 1rem auto;
+        
+    }
+
 }
 
 .footer a {
