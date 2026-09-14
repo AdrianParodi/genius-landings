@@ -32,8 +32,6 @@ function enviarLeadAApi(?string $name, ?string $email, ?string $phone, ?string $
     $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlError  = curl_error($ch);
 
-    curl_close($ch);
-
     if ($curlError) {
         error_log("Error cURL al enviar lead: " . $curlError);
         return false;
