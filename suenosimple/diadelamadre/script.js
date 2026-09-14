@@ -1,3 +1,17 @@
+// -------------- Boton volver del catalogo --------------
+
+document.addEventListener('DOMContentLoaded', () => {
+  const botonVolver = document.getElementById("btn-volver");
+  
+  // Validamos que el botón realmente exista en esta página para evitar errores en consola
+  if (botonVolver) {
+    botonVolver.addEventListener('click', () => {
+      window.history.go(-1);
+      console.log("funcionaaaaa");
+    });
+  }
+});
+
 // -------------- Formulario --------------
 
 const form = document.getElementById("registro-form");
@@ -6,10 +20,12 @@ const feedbackMsg = document.getElementById("feedback-msg");
 
 // ─── Funciones de validación ───────────────────────────────────────
 function validarNombre(nombre) {
-    return nombre.trim().length > 0;
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    return regex.test(nombre);
 }
 
 function validarEmail(email) {
+        
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
@@ -23,13 +39,21 @@ function validarTelefono(telefono) {
 
 function mostrarError(campo, mensaje) {
     const errorEl = document.getElementById(`error-${campo}`);
-    if (errorEl) errorEl.textContent = mensaje;
+    const input = document.getElementById(`input-${campo}`);
+    if (errorEl) {
+        input.setAttribute('aria-invalid', 'true');
+        errorEl.textContent = mensaje;
+    }
 }
 
 function limpiarErrores() {
     ["nombre", "email", "telefono"].forEach(campo => {
         const errorEl = document.getElementById(`error-${campo}`);
-        if (errorEl) errorEl.textContent = "";
+        const input = document.getElementById(`input-${campo}`);
+        if (errorEl) {
+            input.removeAttribute('aria-invalid');
+            errorEl.textContent = ""
+        };
     });
 }
 
@@ -43,8 +67,8 @@ form.addEventListener("submit", async function (event) {
     feedbackMsg.textContent = "";
 
     const formData = {
-        nombre:   form.nombre.value.trim(),
-        email:    form.email.value.trim(),
+        nombre: form.nombre.value.trim(),
+        email: form.email.value.replace(/\s/g, ""),
         telefono: form.telefono.value.trim(),
     };
 
@@ -52,17 +76,17 @@ form.addEventListener("submit", async function (event) {
     let hayErrores = false;
 
     if (!validarNombre(formData.nombre)) {
-        mostrarError("nombre", "El nombre no puede estar vacío.");
+        mostrarError("nombre", "Error: Ingresá un nombre valido.");
         hayErrores = true;
     }
 
     if (!validarEmail(formData.email)) {
-        mostrarError("email", "Ingresá un email válido (ej: usuario@mail.com).");
+        mostrarError("email", "Error: Ingresá un email válido.");
         hayErrores = true;
     }
 
     if (!validarTelefono(formData.telefono)) {
-        mostrarError("telefono", "El teléfono solo puede contener números.");
+        mostrarError("telefono", "Error: Ingresá un numero valido.");
         hayErrores = true;
     }
 
@@ -72,45 +96,38 @@ form.addEventListener("submit", async function (event) {
     btnSubmit.disabled = true;
     btnSubmit.textContent = "Enviando...";
 
-<<<<<<< HEAD
-       try {
-=======
     try {
->>>>>>> 3623f4f5a733b03ad69a02806c7722e60bd6338b
-    const response = await fetch("phpfiles/guardar.php", {
-        method: "POST",
-        body: new URLSearchParams(formData)
-    });
+        const response = await fetch("phpfiles/guardar.php", {
+            method: "POST",
+            body: new URLSearchParams(formData)
+        });
 
-    // PHP siempre responde JSON, lo parseamos
-    const data = await response.json();
+        // PHP siempre responde JSON, lo parseamos
+        const data = await response.json();
 
-    if (data.ok) {
-        feedbackMsg.classList.add("success");
-        feedbackMsg.textContent = data.mensaje; // "¡Gracias por registrarte!"
-        form.reset();
-    } else {
-        // PHP devolvió ok:false → mostramos el error correspondiente
+        if (data.ok) {
+            feedbackMsg.classList.add("success");
+            feedbackMsg.textContent = data.mensaje; // "¡Gracias por registrarte!"
+            form.reset();
+        } else {
+            // PHP devolvió ok:false → mostramos el error correspondiente
+            feedbackMsg.classList.add("error");
+            feedbackMsg.textContent = data.mensaje;
+        }
+
+        setInterval(function () {
+            feedbackMsg.textContent = ""
+        }, 4000);
+
+    } catch (error) {
+        // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
         feedbackMsg.classList.add("error");
-        feedbackMsg.textContent = data.mensaje;
+        feedbackMsg.textContent = "No se pudo conectar con el servidor. Revisá tu conexión.";
+    } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = "Registrarme ahora";
     }
-
-<<<<<<< HEAD
-=======
-    setInterval(function() {
-        feedbackMsg.textContent = ""
-    }, 4000);
-
->>>>>>> 3623f4f5a733b03ad69a02806c7722e60bd6338b
-} catch (error) {
-    // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
-    feedbackMsg.classList.add("error");
-    feedbackMsg.textContent = "No se pudo conectar con el servidor. Revisá tu conexión.";
-} finally {
-    btnSubmit.disabled = false;
-    btnSubmit.textContent = "Registrarme ahora";
-    }
-});   
+});
 
 
 // -------------- Seccion preguntas --------------
@@ -118,15 +135,16 @@ form.addEventListener("submit", async function (event) {
 document.querySelectorAll('.faq-question').forEach(button => {
     button.addEventListener('click', () => {
         const currentItem = button.parentElement;
-        
+
         const isActive = currentItem.classList.contains('active');
-        
+
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         if (!isActive) {
             currentItem.classList.add('active');
         }
     });
 });
+
