@@ -1,7 +1,6 @@
 <?php
 // guardar.php
 require 'database.php';
-require_once 'api_lead_cliente.php';
 
 // ← Esto es clave: le decimos al navegador que la respuesta es JSON
 header('Content-Type: application/json');
@@ -35,9 +34,6 @@ try {
 
     // ← JSON de éxito
     echo json_encode(['ok' => true, 'mensaje' => '¡Gracias por registrarte!']);
-
-    // 2. Enviar a la API externa
-    $apiOk = enviarLeadAApi($nombre, $email, $telefono, null);
 
 } catch (PDOException $e) {
     if ($e->getCode() == 23000) {

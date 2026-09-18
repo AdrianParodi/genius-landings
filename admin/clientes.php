@@ -7,7 +7,7 @@
 require_once 'api.php';
 
 $clientes = [
-    ['id' => 1, 'nombre' => 'SueñoSimple', 'carpeta' => 'suenosimple'],
+    ['id' => 1, 'nombre' => 'SuenoSimple', 'carpeta' => 'suenosimple'],
     ['id' => 2, 'nombre' => 'TechStore',   'carpeta' => 'techstore'],
     ['id' => 3, 'nombre' => 'ModalAtam',   'carpeta' => 'modalatam'],
 ];
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <td><?= $c['id'] ?></td>
             <td><?= htmlspecialchars($c['nombre']) ?></td>
             <td><code><?= htmlspecialchars($c['carpeta']) ?></code></td>
-            <td><a href="landings.php?cliente=<?= urlencode($c['nombre']) ?>">Ver landings</a></td>
+            <td><a href="landings.php?client=<?= urlencode($c['nombre']) ?>">Ver landings</a></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
