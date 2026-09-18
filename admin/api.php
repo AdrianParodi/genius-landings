@@ -14,16 +14,43 @@ function api_get(string $url): array {
     return json_decode($response, true) ?? [];
 }
 
+function api_patch(string $url, array $data = []): array {
+    $context  = stream_context_create([
+        'http' => [
+            'method' => 'PATCH',
+            'header' => "Content-Type: application/json\r\n",
+            'content' => json_encode($data),
+            'timeout' => 3]]);
+     echo "<pre>paso por patch:\n";
+
+    $response = @file_get_contents($url, false, $context);
+    if ($response === false) return [];
+    return json_decode($response, true) ?? [];
+}
+
+function edit_status_landing(string $id, string $status): array {
+     echo "<pre>ya llego a edit";
+
+    return api_patch(LANDING_CRM_URL . '/api/landings/' . urldecode($id), ["status" => $status]);
+
+}
+
 function get_campaigns(?string $client = null): array {
     $url = BUDGET_MANAGER_URL . '/api/campaigns';
     if ($client) $url .= '?client=' . urlencode($client);
     return api_get($url);
 }
 
-function get_landings(?string $client = null): array {
+function get_landings(): array {
     $url = LANDING_CRM_URL . '/api/landings';
-    if ($client) $url .= '?client=' . urlencode($client);
+  
     return api_get($url);
+}
+
+
+function get_landings_by_client(?string $client): array {
+  
+    return api_get(LANDING_CRM_URL . '/api/landings/' . urldecode($client));
 }
 
 function get_leads(int $landing_id): array {

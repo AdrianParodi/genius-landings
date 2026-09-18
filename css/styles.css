@@ -224,11 +224,24 @@ main {
   font-size: 0.72rem;
   font-weight: 700;
   white-space: nowrap;
+  transform: translateY(1px); /* Baja 1 píxel al presionarlo */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* La sombra se achica */
 }
 
 .badge-active   { background: #dcfce7; color: #166534; }
 .badge-draft    { background: #f1f5f9; color: #475569; }
 .badge-inactive { background: #fef9c3; color: #854d0e; }
+
+.button-status:hover {
+  transform: translateY(-1px); /* Sube 1 píxel para simular flotación */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.12); /* Sombra más pronunciada */
+  filter: brightness(0.95); 
+}
+
+.button-status:active {
+  transform: translateY(1px); /* Baja 1 píxel al presionarlo */
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
 
 /* ─── Buttons ─────────────────────────────────────── */
 
