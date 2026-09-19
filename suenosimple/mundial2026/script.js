@@ -1,150 +1,100 @@
-// -------------- Boton volver del catalogo --------------
+// ===== Acordeón de preguntas frecuentes =====
+document.querySelectorAll(".faq-item").forEach((item) => {
+    const question = item.querySelector(".faq-question");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const botonVolver = document.getElementById("btn-volver");
-  
-  // Validamos que el botón realmente exista en esta página para evitar errores en consola
-  if (botonVolver) {
-    botonVolver.addEventListener('click', () => {
-      window.history.go(-1);
-      console.log("funcionaaaaa");
+    question.addEventListener("click", () => {
+        const isOpen = item.classList.contains("is-open");
+
+        // Cierra los demás items (acordeón exclusivo)
+        document.querySelectorAll(".faq-item").forEach((other) => {
+            other.classList.remove("is-open");
+            other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+        });
+
+        if (!isOpen) {
+            item.classList.add("is-open");
+            question.setAttribute("aria-expanded", "true");
+        }
     });
-  }
 });
 
-// -------------- Formulario --------------
-
+// ===== Validación simple del formulario de leads =====
 const form = document.getElementById("registro-form");
-const btnSubmit = document.getElementById("btn-submit");
-const feedbackMsg = document.getElementById("feedback-msg");
 
-// ─── Funciones de validación ───────────────────────────────────────
-function validarNombre(nombre) {
-    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    return regex.test(nombre);
-}
+if (form) {
+    form.addEventListener("submit", (event) => {
+        let hasError = false;
 
-function validarEmail(email) {
-        
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
+        const nombre = document.getElementById("input-nombre");
+        const email = document.getElementById("input-email");
+        const whatsapp = document.getElementById("input-whatsapp");
 
-function validarTelefono(telefono) {
-    if (telefono === "") return true; // Campo vacío → OK, es opcional
+        const errorNombre = document.getElementById("error-nombre");
+        const errorEmail = document.getElementById("error-email");
+        const errorWhatsapp = document.getElementById("error-whatsapp");
 
-    const regex = /^\d+$/; // Si ingresó algo → solo números
-    return regex.test(telefono);
-}
+        [errorNombre, errorEmail, errorWhatsapp].forEach((el) => (el.textContent = ""));
 
-function mostrarError(campo, mensaje) {
-    const errorEl = document.getElementById(`error-${campo}`);
-    const input = document.getElementById(`input-${campo}`);
-    if (errorEl) {
-        input.setAttribute('aria-invalid', 'true');
-        errorEl.textContent = mensaje;
-    }
-}
-
-function limpiarErrores() {
-    ["nombre", "email", "telefono"].forEach(campo => {
-        const errorEl = document.getElementById(`error-${campo}`);
-        const input = document.getElementById(`input-${campo}`);
-        if (errorEl) {
-            input.removeAttribute('aria-invalid');
-            errorEl.textContent = ""
-        };
-    });
-}
-
-// ─── Submit ────────────────────────────────────────────────────────
-form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    // Limpiar estado previo
-    limpiarErrores();
-    feedbackMsg.className = "status-msg";
-    feedbackMsg.textContent = "";
-
-    const formData = {
-        nombre: form.nombre.value.trim(),
-        email: form.email.value.replace(/\s/g, ""),
-        telefono: form.telefono.value.trim(),
-    };
-
-    // ── Validaciones ──────────────────────────────────────────────
-    let hayErrores = false;
-
-    if (!validarNombre(formData.nombre)) {
-        mostrarError("nombre", "Error: Ingresá un nombre valido.");
-        hayErrores = true;
-    }
-
-    if (!validarEmail(formData.email)) {
-        mostrarError("email", "Error: Ingresá un email válido.");
-        hayErrores = true;
-    }
-
-    if (!validarTelefono(formData.telefono)) {
-        mostrarError("telefono", "Error: Ingresá un numero valido.");
-        hayErrores = true;
-    }
-
-    if (hayErrores) return; //Corta acá si hay errores, no envía nada
-
-    // ── Envío a tu script PHP ─────────────────────────────────────
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = "Enviando...";
-
-    try {
-        const response = await fetch("phpfiles/guardar.php", {
-            method: "POST",
-            body: new URLSearchParams(formData)
-        });
-
-        // PHP siempre responde JSON, lo parseamos
-        const data = await response.json();
-
-        if (data.ok) {
-            feedbackMsg.classList.add("success");
-            feedbackMsg.textContent = data.mensaje; // "¡Gracias por registrarte!"
-            form.reset();
-        } else {
-            // PHP devolvió ok:false → mostramos el error correspondiente
-            feedbackMsg.classList.add("error");
-            feedbackMsg.textContent = data.mensaje;
+        if (!nombre.value.trim()) {
+            errorNombre.textContent = "Ingresá tu nombre.";
+            hasError = true;
         }
 
-        setInterval(function () {
-            feedbackMsg.textContent = ""
-        }, 4000);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            errorEmail.textContent = "Ingresá un email válido.";
+            hasError = true;
+        }
 
-    } catch (error) {
-        // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
-        feedbackMsg.classList.add("error");
-        feedbackMsg.textContent = "No se pudo conectar con el servidor. Revisá tu conexión.";
-    } finally {
-        btnSubmit.disabled = false;
-        btnSubmit.textContent = "Registrarme ahora";
-    }
-});
+        if (!whatsapp.value.trim()) {
+            errorWhatsapp.textContent = "Ingresá tu número de WhatsApp.";
+            hasError = true;
+        }
 
-
-// -------------- Seccion preguntas --------------
-
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-        const currentItem = button.parentElement;
-
-        const isActive = currentItem.classList.contains('active');
-
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        if (!isActive) {
-            currentItem.classList.add('active');
+        if (hasError) {
+            event.preventDefault();
         }
     });
-});
+}
 
+// ===== Cuenta regresiva de la oferta =====
+// Editá esta fecha/hora según cuándo termina la promo (formato: año-mes-díaTHH:mm:ss)
+const COUNTDOWN_TARGET = new Date("2026-10-01T23:59:59");
+
+function actualizarCountdown() {
+    const horasEl = document.getElementById("timer-horas");
+    const minEl = document.getElementById("timer-min");
+    const segEl = document.getElementById("timer-seg");
+
+    if (!horasEl || !minEl || !segEl) return;
+
+    const ahora = new Date();
+    let diferencia = COUNTDOWN_TARGET - ahora;
+
+    if (diferencia <= 0) {
+        horasEl.textContent = "00";
+        minEl.textContent = "00";
+        segEl.textContent = "00";
+        clearInterval(countdownInterval);
+        return;
+    }
+
+    const horas = Math.floor(diferencia / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    horasEl.textContent = String(horas).padStart(2, "0");
+    minEl.textContent = String(minutos).padStart(2, "0");
+    segEl.textContent = String(segundos).padStart(2, "0");
+}
+
+actualizarCountdown();
+const countdownInterval = setInterval(actualizarCountdown, 1000);
+
+const btnVolver = document.getElementById("btn-volver");
+
+if (btnVolver) {
+    btnVolver.addEventListener("click", () => {
+        window.history.back();
+    });
+}
