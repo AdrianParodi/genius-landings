@@ -11,10 +11,10 @@ $cliente  = $_GET['client'] ?? '';
 $landings = $cliente ? get_landings_by_client($cliente) : [];
 $leads_by_landing = [];
 
-// TODO GL-F09: cargar conteo de leads por landing desde el Landing CRM
-// foreach ($landings as $l) {
-//     $leads_by_landing[$l['id']] = count(get_leads($l['id']));
-// } 
+// TODO GL-F09: cargar conteo de leads por landing desde el Landing CRM .
+foreach ($landings as $l) {
+    $leads_by_landing[$l['id']] = count(get_leads($l['id']));
+} 
 
 $mensaje = '';
 
@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $mensaje = 'Error: nombre, archivo y cliente son obligatorios.';
     }
   }
-
 }
 
 ?>
@@ -305,8 +304,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
               </td>
               <td>
-                <?= $leads_by_landing[$l['id']] ?? '—' ?>
-                <!-- TODO GL-F09: mostrar conteo real -->
+                <p style="text-align: center;">
+                  <?= $leads_by_landing[$l['id']] ?>
+                </p>
               </td>
               <td><a href="<?= LANDING_CRM_URL ?>/landings/<?= $l['id'] ?>/preview" target="_blank">Preview</a></td>
             </tr>

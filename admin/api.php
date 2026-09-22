@@ -29,10 +29,8 @@ function api_patch(string $url, array $data = []): array {
 }
 
 function edit_status_landing(string $id, string $status): array {
-     echo "<pre>ya llego a edit";
-
+    echo "<pre>ya llego a edit";
     return api_patch(LANDING_CRM_URL . '/api/landings/' . urldecode($id), ["status" => $status]);
-
 }
 
 function get_campaigns(?string $client = null): array {
@@ -43,14 +41,11 @@ function get_campaigns(?string $client = null): array {
 
 function get_landings(): array {
     $url = LANDING_CRM_URL . '/api/landings';
-  
     return api_get($url);
 }
 
-
-function get_landings_by_client(?string $client): array {
-  
-    return api_get(LANDING_CRM_URL . '/api/landings/' . urldecode($client));
+function get_landings_by_client(?string $client): array { 
+    return api_get(LANDING_CRM_URL . '/api/landings/client/' . urldecode($client));
 }
 
 function get_leads(int $landing_id): array {

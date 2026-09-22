@@ -11,7 +11,6 @@ $landings = $cliente ? get_landings_by_client($cliente) : [];
 $leads_by_landing = [];
 $estados_lista = ["active", "draft", "inactive"];
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'] ?? null;
     $status = $_POST['status'] ?? null;
