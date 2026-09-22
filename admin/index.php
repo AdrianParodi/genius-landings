@@ -13,12 +13,13 @@ $campaigns = get_campaigns();
 $landings  = get_landings();
 
 function count_landings_for(array $landings, string $client): int {
-    return count(array_filter($landings, fn($l) => strcasecmp($l['client'] ?? '', $client) === 0));
+  return count(array_filter($landings, fn($l) => strcasecmp($l['client'] ?? '', $client) === 0));
 }
 
 function count_campaigns_for(array $campaigns, string $client): int {
-    return count(array_filter($campaigns, fn($c) => strcasecmp($c['client'] ?? '', $client) === 0));
+  return count(array_filter($campaigns, fn($c) => strcasecmp($c['client'] ?? '', $client) === 0));
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
