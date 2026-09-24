@@ -9,6 +9,7 @@
     --text-muted: #4b5d7a;
     --border-light: #e2e8f0;
     --bg-light: #f8fafc;
+    --bg-surface: #f5f5f5;
     --bg-blue-tint: #ecf2fc;
     --blue-600: #2563eb;
     --blue-500: #3b82f6;
@@ -16,7 +17,7 @@
     --amber-600: #d97706;
     --white: #ffffff;
     --radius-md: 10px;
-    --radius-lg: 16px;
+    --radius-lg: 12px; 
     --max-width: 1200px;
     --wsp-green: #25d366;
 }
@@ -70,10 +71,15 @@ p {
 }
 
 .image-placeholder--hero {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 552 / 385;
     background: none;
     border: none;
+    border-radius: 12px;
     overflow: hidden;
+    /* aspect-ratio: 4 / 3;
+    background: none;
+    border: none;
+    overflow: hidden; */
 }
 
 .image-placeholder--hero img {
@@ -81,6 +87,10 @@ p {
     height: 100%;
     object-fit: cover;
     border-radius: var(--radius-lg);
+    /* width: 90%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-lg); */
 }
 
 .image-placeholder--product {
@@ -142,16 +152,18 @@ p {
 }
 
 .btn-volver {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 500;
     padding: 8px 16px;
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-md);
-    color: var(--navy-700);
+    border: 1px solid var(--wsp-green);
+    border-radius: 6px;
+    background: var(--wsp-green);
+    color: var(--white);
 }
 
 .btn-volver:hover {
-    background: var(--bg-light);
+    background: #1ead55;
+    border-color: #1ead55;
 }
 
 .logo img {
@@ -160,31 +172,48 @@ p {
 }
 
 
-/* ===== Hero ===== */
+/* ===== Hero (con formulario de leads integrado) ===== */
 .hero {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 40px 24px 80px;
+    background: var(--bg-surface);
+    padding: 48px 40px 80px;
 }
 
-.hero-content {
+.hero-grid {
+    max-width: var(--max-width);
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: 1fr 500px;
+    gap: 64px;
     align-items: center;
 }
 
+.hero-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #888888;
+    margin-bottom: 16px;
+}
+
 .hero-left h1 {
-    font-size: 40px;
+    font-size: 42px;
+    font-weight: 600;
     line-height: 1.15;
     margin-bottom: 20px;
 }
 
-.hero-left p {
-    font-size: 16px;
+.hero-subtitle {
+    font-size: 18px;
     color: var(--text-muted);
-    margin-bottom: 28px;
-    max-width: 46ch;
+    margin-bottom: 20px;
+    max-width: 93%;
 }
 
 .btn-cta {
@@ -192,9 +221,9 @@ p {
     background: var(--amber-500);
     color: var(--white);
     font-weight: 600;
-    font-size: 15px;
-    padding: 14px 28px;
-    border-radius: var(--radius-md);
+    font-size: 16px;
+    padding: 12px 24px;
+    border-radius: 6px;
     transition: background 0.15s ease;
 }
 
@@ -202,90 +231,62 @@ p {
     background: var(--amber-600);
 }
 
-/* ===== Leads section ===== */
-.section-leads {
-    background: var(--navy-900);
-    color: var(--white);
-    padding: 64px 24px;
-    text-align: center;
-    position: relative;
+.hero-image-wrap {
+    margin-top: 48px;
+    width: 86%;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: 32px;
+    width: 100%; */
 }
 
-.notification-badge {
-    width: 48px;
-    height: 48px;
+/* ===== Tarjeta de leads (dentro del hero) ===== */
+.leads-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.module-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bell-icon {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background: var(--amber-500);
+    background: #ffc700;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px;
-    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3);
+    flex-shrink: 0;
 }
 
-.leads-container {
-    max-width: 620px;
-    margin: 0 auto 32px;
+.module-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
 }
 
-.leads-container h2 {
-    color: var(--white);
-    font-size: 28px;
-    margin-bottom: 12px;
-}
-
-.leads-container p {
-    color: #b6c2d9;
-    font-size: 15px;
-}
-
-.leads-form {
-    max-width: 960px;
-    margin: 0 auto;
-    background: var(--navy-800);
-    border: 1px solid #263756;
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    text-align: left;
-}
-
-.leads-form .field {
-    flex: 1;
-    min-width: 0;
-}
-
-.leads-form label {
-    display: block;
+.leads-desc {
     font-size: 13px;
-    font-weight: 600;
-    color: #cbd5e1;
-    margin-bottom: 6px;
-}
-
-.leads-form input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #2f4062;
-    background: var(--white);
-    color: var(--navy-700);
-    font-size: 14px;
-}
-
-.leads-form input::placeholder {
-    color: #94a3b8;
-}
-
-.leads-form input:focus {
-    outline: 2px solid var(--blue-500);
-    outline-offset: 1px;
+    color: #4b4b4b;
 }
 
 .countdown-timer {
-    margin-bottom: 32px;
+    background: var(--navy-700);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .countdown-eyebrow {
@@ -294,7 +295,7 @@ p {
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    text-align: center;
 }
 
 .timer-blocks {
@@ -337,45 +338,55 @@ p {
     color: #94a3b8;
 }
 
-/* .btn-form-submit {
-    flex-shrink: 0;
-    align-self: flex-end;
-    background: var(--blue-600);
-    color: var(--white);
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-    white-space: nowrap;
-    margin-top: 21px;
-} */
-.field-label-spacer {
+.leads-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.leads-form label {
     display: block;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
+    color: #333333;
     margin-bottom: 6px;
-    visibility: hidden;
+}
+
+.leads-form input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid #cccccc;
+    background: var(--white);
+    color: var(--navy-700);
+    font-size: 14px;
+}
+
+.leads-form input::placeholder {
+    color: #999999;
+}
+
+.leads-form input:focus {
+    outline: 2px solid var(--blue-500);
+    outline-offset: 1px;
 }
 
 .btn-form-submit {
     width: 100%;
-    background: var(--blue-600);
+    background: var(--blue-500);
     color: var(--white);
     border: none;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 12px 24px;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 24px;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.15s ease;
-    white-space: nowrap;
 }
 
 .btn-form-submit:hover {
-    background: var(--blue-500);
+    background: var(--blue-600);
 }
 
 .status-msg {
@@ -793,59 +804,15 @@ p {
         display: none;
     }
 
-    .hero-content {
+    .hero-grid {
         grid-template-columns: 1fr;
-    }
-
-    .hero-right {
-        order: -1;
+        gap: 32px;
     }
 
     .product-grid,
     .beneficios,
     .reviews-grid {
         grid-template-columns: 1fr;
-    }
-
-    /* .leads-form {
-        flex-direction: column;
-        align-items: stretch;
-    } */
-
-    .leads-form {
-    max-width: 960px;
-    margin: 0 auto;
-    background: var(--navy-800);
-    border: 1px solid #263756;
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    text-align: left;
-    }
-
-    .leads-form .field {
-        width: 100%;
-    }
-
-    /* .btn-form-submit {
-        width: 100%;
-        margin-top: 8px;
-    } */
-
-    .btn-form-submit {
-    flex-shrink: 0;
-    background: var(--blue-600);
-    color: var(--white);
-    border: none;
-    font-weight: 600;
-    font-size: 15px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.15s ease;
-    white-space: nowrap;
     }
 
     .footer-columns {

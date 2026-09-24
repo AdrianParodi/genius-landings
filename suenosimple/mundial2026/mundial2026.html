@@ -23,95 +23,91 @@
                 <a href="#faq">FAQ</a>
             </div>
 
-            <a class="btn-volver" href="catalogo.html">
-                ← Catálogo
+            <a class="btn-volver" href="https://wa.me/7654654132" target="_blank" rel="noreferrer noopener">
+                ← Whatsapp
             </a>
         </nav>
     </div>
 
-    <section class="hero">
-        <div class="hero-content">
+    <section class="hero" id="formulario">
+        <div class="hero-grid">
             <div class="hero-left">
+                <p class="eyebrow">MUNDIAL 2026</p>
                 <h1>Descansá como un campeón para alentar a la selección.</h1>
-                <p>
+                <p class="hero-subtitle">
                     Dormir bien no debería ser un lujo, especialmente en meses de pasión mundialista.
                     Aprovechá nuestras ofertas con precio honesto y entrega rápida.
                 </p>
-                <a class="btn-cta" href="#formulario">Quiero mi descuento mundial</a>
-            </div>
-            <div class="hero-right">
-                <div class="image-placeholder image-placeholder--hero">
-                    <img src="/suenosimple/mundial2026/img/imagen-hero.png"  alt="imagen de familia descansando en un colchón de espuma de alta densidad">
-                    
+                <a class="btn-cta" href="#registro-form">Quiero mi descuento mundial</a>
+
+                <div class="hero-image-wrap">
+                    <div class="image-placeholder image-placeholder--hero">
+                        <img src="/suenosimple/mundial2026/img/imagen-hero.png"  alt="imagen de familia descansando en un colchón de espuma de alta densidad">
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="section-leads" id="formulario">
-        <div class="notification-badge" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 3C9.5 3 7.5 5 7.5 7.5V11L5.5 14.5H18.5L16.5 11V7.5C16.5 5 14.5 3 12 3Z" stroke="#131b2e" stroke-width="1.6" stroke-linejoin="round"/>
-                <path d="M10 17.5C10 18.6 10.9 19.5 12 19.5C13.1 19.5 14 18.6 14 17.5" stroke="#131b2e" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-        </div>
-
-        <div class="leads-container">
-            <h2>¡Acceso Anticipado a las Ofertas Relámpago!</h2>
-            <p>
-                Registrate para recibir alertas exclusivas cada vez que juegue la selección
-                y accedé a precios de fábrica antes que nadie
-            </p>
-            
-        </div>
-
-        <div class="countdown-timer" aria-label="tiempo restante de la oferta">
-            <p class="countdown-eyebrow">OFERTA TERMINA EN</p>
-            <div class="timer-blocks">
-                <div class="timer-block">
-                    <p class="timer-value" id="timer-horas">00</p>
-                    <p class="timer-label">Horas</p>
+            <div class="leads-card">
+                <div class="module-header">
+                    <div class="bell-icon" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3C9.5 3 7.5 5 7.5 7.5V11L5.5 14.5H18.5L16.5 11V7.5C16.5 5 14.5 3 12 3Z" stroke="#131b2e" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M10 17.5C10 18.6 10.9 19.5 12 19.5C13.1 19.5 14 18.6 14 17.5" stroke="#131b2e" stroke-width="1.6" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2>¡Acceso Anticipado a las Ofertas Relámpago!</h2>
                 </div>
-                <p class="timer-colon">:</p>
-                <div class="timer-block">
-                    <p class="timer-value" id="timer-min">00</p>
-                    <p class="timer-label">Min</p>
+
+                <p class="leads-desc">
+                    Registrate para recibir alertas exclusivas cada vez que juegue la selección
+                    y accedé a precios de fábrica antes que nadie
+                </p>
+
+                <div class="countdown-timer" aria-label="tiempo restante de la oferta">
+                    <p class="countdown-eyebrow">OFERTA TERMINA EN</p>
+                    <div class="timer-blocks">
+                        <div class="timer-block">
+                            <p class="timer-value" id="timer-horas">00</p>
+                            <p class="timer-label">Horas</p>
+                        </div>
+                        <p class="timer-colon">:</p>
+                        <div class="timer-block">
+                            <p class="timer-value" id="timer-min">00</p>
+                            <p class="timer-label">Min</p>
+                        </div>
+                        <p class="timer-colon">:</p>
+                        <div class="timer-block">
+                            <p class="timer-value" id="timer-seg">00</p>
+                            <p class="timer-label">Seg</p>
+                        </div>
+                    </div>
                 </div>
-                <p class="timer-colon">:</p>
-                <div class="timer-block">
-                    <p class="timer-value" id="timer-seg">00</p>
-                    <p class="timer-label">Seg</p>
-                </div>
+
+                <form class="leads-form" id="registro-form" action="phpfiles/guardar.php">
+                    <div class="field">
+                        <label for="input-nombre">Nombre *</label>
+                        <input type="text" id="input-nombre" name="nombre" placeholder="Ej: María Pérez" required
+                            aria-describedby="error-nombre">
+                        <p id="error-nombre" class="status-msg error"></p>
+                    </div>
+                    <div class="field">
+                        <label for="input-email">Email *</label>
+                        <input type="email" id="input-email" name="email" placeholder="Ej: maria@ejemplo.com" required
+                            aria-describedby="error-email">
+                        <p id="error-email" class="status-msg error"></p>
+                    </div>
+                    <div class="field">
+                        <label for="input-whatsapp">WhatsApp *</label>
+                        <input type="tel" id="input-whatsapp" name="whatsapp" placeholder="Ej: 11 9876-5432" required
+                            aria-describedby="error-whatsapp">
+                        <p id="error-whatsapp" class="status-msg error"></p>
+                    </div>
+
+                    <button type="submit" id="btn-submit" class="btn-form-submit">Registrarme</button>
+                </form>
+                <p id="feedback-msg" class="status-msg"></p>
             </div>
         </div>
-
-        <form class="leads-form" id="registro-form" action="phpfiles/guardar.php">
-            <div class="field">
-                <label for="input-nombre">Nombre *</label>
-                <input type="text" id="input-nombre" name="nombre" placeholder="Ej: María Pérez" required
-                    aria-describedby="error-nombre">
-                <p id="error-nombre" class="status-msg error"></p>
-            </div>
-            <div class="field">
-                <label for="input-email">Email *</label>
-                <input type="email" id="input-email" name="email" placeholder="Ej: maria@ejemplo.com" required
-                    aria-describedby="error-email">
-                <p id="error-email" class="status-msg error"></p>
-            </div>
-            <div class="field">
-                <label for="input-whatsapp">WhatsApp *</label>
-                <input type="tel" id="input-whatsapp" name="whatsapp" placeholder="Ej: 11 9876-5432" required
-                    aria-describedby="error-whatsapp">
-                <p id="error-whatsapp" class="status-msg error"></p>
-            </div>
-
-            <div class="field field-submit">
-            <label class="field-label-spacer" aria-hidden="true">&nbsp;</label>
-            <button type="submit" id="btn-submit" class="btn-form-submit">Registrarme</button>
-            </div>
-            <!-- <button type="submit" id="btn-submit" class="btn-form-submit">Registrarme</button> -->
-        </form>
-        <p id="feedback-msg" class="status-msg"></p>
     </section>
 
     <section class="section-ofertas" id="ofertas">
