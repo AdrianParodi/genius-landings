@@ -33,7 +33,7 @@ function count_campaigns_for(array $campaigns, string $client): int {
     .admin-header a { color:#94a3b8; text-decoration:none; font-size:.85rem; }
     .admin-header a:hover { color:#fff; }
     .admin-main  { max-width:1100px; margin:0 auto; padding:32px 24px; }
-    .admin-grid  { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; margin-top:24px; }
+    .admin-grid  { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:20px; margin-top:24px;}
     .admin-card  { background:#fff; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,.1); padding:20px 24px; }
     .admin-card h3 { font-size:1rem; font-weight:700; margin-bottom:8px; }
     .admin-card .meta { font-size:.82rem; color:#64748b; margin-bottom:14px; }
@@ -42,6 +42,16 @@ function count_campaigns_for(array $campaigns, string $client): int {
     .btn-secondary { background:#e9ecef; color:#333; margin-left:6px; }
     .page-title { font-size:1.3rem; font-weight:700; }
     .page-sub   { color:#64748b; font-size:.88rem; margin-top:4px; }
+    .form-card { grid-column: 2; height: fit-content; background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0, 0, 0, .1); padding: 24px; margin-bottom: 28px;}
+    .form-card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 16px;}
+    .field { margin-bottom: 14px }
+    .field label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: 4px }
+    .field input,
+    .field select { width: 100%; padding: 8px 12px; border: 1px solid #dee2e6; border-radius: 4px; font-size: .88rem; }
+    .grid-cols { grid-column: 1;  }
+    form, .grid-cols {
+      display: flex; flex-direction: column; gap:.9rem;
+    }
   </style>
 </head>
 <body>
@@ -62,6 +72,7 @@ function count_campaigns_for(array $campaigns, string $client): int {
     <?php endif; ?>
 
     <div class="admin-grid">
+      <div class="grid-cols">
       <?php foreach ($clientes as $c): ?>
         <?php
           $total_landings  = count_landings_for($landings, $c['nombre']);
@@ -77,6 +88,32 @@ function count_campaigns_for(array $campaigns, string $client): int {
           <a href="../<?= $c['carpeta'] ?>/index.html?client=<?= $c['nombre'] ?>" class="btn btn-secondary">Ver panel</a>
         </div>
       <?php endforeach; ?>
+      </div>
+
+        <!-- Formulario de nuevo cliente -->
+      <!-- <div class="form-card">
+        <h2>Registrar nuevo cliente</h2>
+        <form method="POST">
+          <input type="hidden" name="action" value="crear_landing">
+          <div class="field">
+            <label>Nombre del cliente</label>
+            <input type="text" name="nombre" placeholder="Ej: Hot Sale 2026" required>
+          </div>
+          <div class="field">
+            <label>Nombre del archivo (sin espacios, sin .html)</label>
+            <input type="text" name="archivo" placeholder="Ej: hot-sale-2026" required>
+          </div>
+          <div class="field">
+            <label>Template</label>
+            <select name="template">
+              <option value="promo-event">promo-event</option>
+              <option value="lead-capture">lead-capture</option>
+              <option value="product-launch">product-launch</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Registrar cliente</button>
+        </form>
+      </div> -->
     </div>
   </div>
 </body>

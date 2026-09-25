@@ -1,22 +1,22 @@
 // ===== Acordeón de preguntas frecuentes =====
-document.querySelectorAll(".faq-item").forEach((item) => {
-    const question = item.querySelector(".faq-question");
+// document.querySelectorAll(".faq-item").forEach((item) => {
+//     const question = item.querySelector(".faq-question");
 
-    question.addEventListener("click", () => {
-        const isOpen = item.classList.contains("is-open");
+//     question.addEventListener("click", () => {
+//         const isOpen = item.classList.contains("is-open");
 
-        // Cierra los demás items (acordeón exclusivo)
-        document.querySelectorAll(".faq-item").forEach((other) => {
-            other.classList.remove("is-open");
-            other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
-        });
+//         // Cierra los demás items (acordeón exclusivo)
+//         document.querySelectorAll(".faq-item").forEach((other) => {
+//             other.classList.remove("is-open");
+//             other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+//         });
 
-        if (!isOpen) {
-            item.classList.add("is-open");
-            question.setAttribute("aria-expanded", "true");
-        }
-    });
-});
+//         if (!isOpen) {
+//             item.classList.add("is-open");
+//             question.setAttribute("aria-expanded", "true");
+//         }
+//     });
+// });
 
 // ===== Formulario de leads =====
 const form = document.getElementById("registro-form");
@@ -173,6 +173,56 @@ if (btnVolver) {
         window.history.back();
     });
 }
+
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        const currentItem = button.parentElement;
+
+        const isActive = currentItem.classList.contains('active');
+
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        if (!isActive) {
+            currentItem.classList.add('active');
+        }
+    });
+});
+
+
+const btnMenu = document.querySelector('.lucide-menu');
+let openMenu = false;
+
+function toggleMenu (){
+    if(openMenu){
+        openMenu = false
+    } else {
+        openMenu = true
+    }
+}
+
+btnMenu.addEventListener("click", toggleMenu);
+document.addEventListener("click", (e) => {
+    const navBar = document.querySelector('.nav-mobile');
+    if(!openMenu){
+        navBar.classList.remove("closeNavBar")
+        navBar.classList.add("openNavBar")
+    } else {
+        navBar.classList.add("closeNavBar")
+        navBar.classList.remove("openNavBar")
+    }
+});
+
+document.querySelectorAll('.nav-mobile a').forEach(enlace => {
+    enlace.addEventListener('click', () => {
+        openMenu = false;
+        
+    });
+});
+
+    
+
 
 // // ===== Acordeón de preguntas frecuentes =====
 // document.querySelectorAll(".faq-item").forEach((item) => {
