@@ -49,6 +49,8 @@
             <h2>Registrate y accedé primero a las ofertas</h1>
 
                 <form class="form-section" id="registro-form" action="phpfiles/guardar.php">
+                    <!-- Envía el ID de la landing para registrarla en el CMR -->
+                    <input type="hidden" name="landingId" value="3">
                     <div class="field">
                         <label for="nombre">Nombre</label>
                         <input type="text" id="input-nombre" name="nombre" placeholder="Tu nombre completo" required 

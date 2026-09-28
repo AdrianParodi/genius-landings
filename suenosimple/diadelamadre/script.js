@@ -70,6 +70,7 @@ form.addEventListener("submit", async function (event) {
         nombre: form.nombre.value.trim(),
         email: form.email.value.replace(/\s/g, ""),
         telefono: form.telefono.value.trim(),
+        landingId: form.landingId.value,
     };
 
     // ── Validaciones ──────────────────────────────────────────────

@@ -14,6 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $nombre   = trim($_POST['nombre']   ?? '');
 $email    = trim($_POST['email']    ?? '');
 $telefono = trim($_POST['telefono'] ?? '');
+$landingId = filter_var($_POST['landingId'] ?? '', FILTER_VALIDATE_INT);
+
+if ($landingId === false || $landingId <= 0) {
+    http_response_code(400);
+    echo json_encode(['ok' => false, 'tipo' => 'landing', 'mensaje' => 'Landing no válida.']);
+    exit;
+}
 
 if (empty($nombre) || empty($email)) {
     http_response_code(400); // Bad Request
@@ -21,7 +28,7 @@ if (empty($nombre) || empty($email)) {
     exit;
 }
 
-if (enviarLeadAApi(3, $nombre, $email, $telefono, null)) {
+if (enviarLeadAApi($landingId, $nombre, $email, $telefono, null)) {
     echo json_encode(['ok' => true, 'mensaje' => '¡Gracias por registrarte!']);
 } else {
     http_response_code(502);

@@ -4,9 +4,9 @@
  * Envía los datos del lead a la API externa.
  * Retorna true si la API respondió 2xx, false en cualquier otro caso.
  */
-function enviarLeadAApi(?string $name, ?string $email, ?string $phone, ?string $message): bool
+function enviarLeadAApi(int $landingId, ?string $name, ?string $email, ?string $phone, ?string $message): bool
 {
-    $url = 'http://localhost:3000/api/landings/3/leads';
+    $url = "http://localhost:3000/api/landings/$landingId/leads";
 
     $payload = json_encode([
         'name'    => $name,

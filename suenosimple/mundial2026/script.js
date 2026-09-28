@@ -72,6 +72,7 @@ if (form) {
             nombre: form.nombre.value.trim(),
             email: form.email.value.replace(/\s/g, ""),
             whatsapp: form.whatsapp.value.trim(),
+            landingId: form.landingId.value,
         };
 
         // ── Validaciones ──────────────────────────────────────────

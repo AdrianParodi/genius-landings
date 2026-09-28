@@ -96,6 +96,8 @@
                 </div>
 
                 <form class="leads-form" id="registro-form" action="phpfiles/guardar.php">
+                    <!-- Envía el ID de la landing para registrarla en el CMR -->
+                    <input type="hidden" name="landingId" value="6">
                     <div class="field">
                         <label for="input-nombre">Nombre *</label>
                         <input type="text" id="input-nombre" name="nombre" placeholder="Ej: María Pérez" required
