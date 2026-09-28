@@ -1,6 +1,6 @@
 <?php
 // guardar.php
-require 'database.php';
+require_once 'api_lead_cliente.php';
 
 // ← Esto es clave: le decimos al navegador que la respuesta es JSON
 header('Content-Type: application/json');
@@ -21,27 +21,10 @@ if (empty($nombre) || empty($email)) {
     exit;
 }
 
-try {
-    $db       = new Database();
-    $conexion = $db->getConexion();
-
-    $sql  = "INSERT INTO contactos (nombre, email, telefono) VALUES (:nombre, :email, :telefono)";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindParam(':nombre',   $nombre);
-    $stmt->bindParam(':email',    $email);
-    $stmt->bindParam(':telefono', $telefono);
-    $stmt->execute();
-
-    // ← JSON de éxito
+if (enviarLeadAApi(3, $nombre, $email, $telefono, null)) {
     echo json_encode(['ok' => true, 'mensaje' => '¡Gracias por registrarte!']);
-
-} catch (PDOException $e) {
-    if ($e->getCode() == 23000) {
-        http_response_code(409); // Conflict
-        echo json_encode(['ok' => false, 'tipo' => 'duplicado', 'mensaje' => 'Este email ya está registrado.']);
-    } else {
-        http_response_code(500); // Server Error
-        echo json_encode(['ok' => false, 'tipo' => 'error', 'mensaje' => 'Error al guardar. Intentá de nuevo.']);
-    }
+} else {
+    http_response_code(502);
+    echo json_encode(['ok' => false, 'tipo' => 'api', 'mensaje' => 'No se pudo enviar el registro. Intentá de nuevo.']);
 }
 ?>
