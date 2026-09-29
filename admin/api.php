@@ -51,3 +51,7 @@ function get_landings_by_client(?string $client): array {
 function get_leads(int $landing_id): array {
     return api_get(LANDING_CRM_URL . '/api/landings/' . $landing_id . '/leads');
 }
+
+function get_preview_landing(int $landing_id): array {
+    return api_get(LANDING_CRM_URL . '/api/landings/' . $landing_id . '/preview');
+}
