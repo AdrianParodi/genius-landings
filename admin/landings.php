@@ -12,8 +12,10 @@ $leads_by_landing = [];
 
 // TODO GL-F09: cargar conteo de leads por landing desde el Landing CRM .
 foreach ($landings as $l) {
-    $leads_by_landing[$l['id']] = count(get_leads($l['id']));
+  $leads_by_landing[$l['id']] = count(get_leads($l['id']));
 } 
+
+// $LANTING_CRM_URL = ""
 
 $mensaje = '';
 
@@ -280,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <tr>
               <td><?= $l['id'] ?></td>
               <td><?= htmlspecialchars($l['name'] ?? $l['title'] ?? '—') ?></td>
-              <td><?= htmlspecialchars($l['template'] ?? '—') ?></td>
+              <td style="text-align: center;"><?= htmlspecialchars($l['templateId'] ?? '—') ?></td>
 
               <!-- <td><span class="badge badge-<?= htmlspecialchars($l['status'] ?? 'borrador') ?>"><?= htmlspecialchars($l['status'] ?? 'borrador') ?></span></td> -->
               
@@ -307,7 +309,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   <?= $leads_by_landing[$l['id']] ?>
                 </p>
               </td>
-              <td><a href="<?= LANDING_CRM_URL ?>/landings/<?= $l['id'] ?>/preview" target="_blank">Preview</a></td>
+              <td><a href="<?= LANDING_CRM_URL ?>/api/landings/<?= $l['id'] ?>/preview" target="_blank">Preview</a></td>
             </tr>
           <?php endforeach; ?>
           <?php if (empty($landings)): ?>
