@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (botonVolver) {
     botonVolver.addEventListener('click', () => {
       window.history.go(-1);
-      console.log("funcionaaaaa");
     });
   }
 });
@@ -118,7 +117,7 @@ form.addEventListener("submit", async function (event) {
 
         setInterval(function () {
             feedbackMsg.textContent = ""
-        }, 4000);
+        }, 7000);
 
     } catch (error) {
         // Solo entra acá si hay falla de red (sin internet, servidor caído, etc.)
