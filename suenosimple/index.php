@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </form>
                     </div>
                     <p class="landing-date">Publicada el: <?php echo $l['fields']['eventDate'] ?? 'Sin fecha confirmada' ?></p>
-                    <a href="economica-pro.html" class="btn btn-outline">Ver landing</a>
+                    <a href="./<?= $l['fields']['ctaUrl'] ?>.html" class="btn btn-outline">Ver landing</a>
                 </div>
 
 
